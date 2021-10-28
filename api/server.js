@@ -19,11 +19,18 @@
 // [x] Add a `server` script to the `package.json` 
 //    that runs the API using `nodemon`.
 
+// | POST   | /api/users     | Creates a user using the information sent inside the `request body`.                                   |
+// | GET    | /api/users     | Returns an array users.                                                                                |
+// | GET    | /api/users/:id | Returns the user object with the specified `id`.                                                       |
+// | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                 |
+// | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified user |
+
+
 const express = require('express')
 const server = express()
+const User = require('./users/model') // this grabs all the exposts from model.js. Then you use it like dot notation, IE User.find()
 
-
-
+// Sanity check*
 // handle requests to the root of the api, the / route
 server.get('/', (req, res) => {  // This is sending back a response.
     // res.send('Hello World, from express...') 
@@ -31,6 +38,48 @@ server.get('/', (req, res) => {  // This is sending back a response.
     res.send("<h1> The server is up... </h1>")
 })
 
+server.get('/api/users', (req, res) => {
+    User.find()
+        .then(users => {
+            res.json(users)
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: 'err getting users',
+                err: err.message,
+            })
+        })
+})
+
+
+
+server.get('/api/users/:id', (req, res) => {
+
+    User.findById(req.params.id)
+
+        .then(user => {
+            // console.log(user) // where does the output show up at?
+            res.json(user)
+        })
+
+        .catch(err => {
+            res.status(500).json({
+                message: 'err getting users',
+                err: err.message,
+            })
+        })
+})
+
+
+
+
+
+
+
+
+
+
+// catch all
 // Universal endpoint (this is a catch), placement sensitive (place at end)
 server.use('*', (req, res) => {
     res.status(404).json({
