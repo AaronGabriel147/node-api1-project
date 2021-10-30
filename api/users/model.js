@@ -7,16 +7,16 @@ function getId() {
   return nanoid().slice(0, 5)
 }
 
+// ______________________________________________________________
 const initializeUsers = () => ([
   { id: getId(), name: 'Ed Carter', bio: 'hero' },
   { id: getId(), name: 'Mary Edwards', bio: 'super hero' },
 ])
-
 // FAKE IN-MEMORY USERS "TABLE"
 let users = initializeUsers()
+// ______________________________________________________________
 
-// DATABASE ACCESS FUNCTIONS
-// DATABASE ACCESS FUNCTIONS
+
 // DATABASE ACCESS FUNCTIONS
 const find = () => {
   // SELECT * FROM users;
@@ -24,8 +24,8 @@ const find = () => {
 }
 
 const findById = id => {
-  // SELECT * FROM users WHERE id = 1;
-  const user = users.find(d => d.id === id)
+  // SELECT FROM users WHERE id = 1;
+  const user = users.find(d => d.id === id) // What does d mean?
   return Promise.resolve(user)
 }
 
