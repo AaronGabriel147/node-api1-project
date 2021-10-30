@@ -20,7 +20,7 @@ let users = initializeUsers()
 // DATABASE ACCESS FUNCTIONS
 const find = () => {
   // SELECT * FROM users;
-  return Promise.resolve(users)  // what does this mean!?!?!?!? -ag
+  return Promise.resolve(users)
 }
 
 const findById = id => {
